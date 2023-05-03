@@ -1,0 +1,42 @@
+{% extends "socialnetwork/logged_in_base.html" %}
+
+{% block page_name %}
+<div id="id_page_name" class="d-flex justify-content-center"> Profile Page for {{profile.user.first_name}} {{profile.user.last_name}}</div>
+{% endblock %}
+
+{% block profile %}
+<div id="id_profile_content">
+    <div class="text-center">
+        <figure>
+            {% if not profile.picture %}
+                <img id="id_user_picture" class="img-thumbnail" src="/static/socialnetwork/other_picture.jpeg">
+            {% else %}
+                <img id="id_user_picture" class="img-thumbnail" src="{% url 'photo' profile.user.id %}">
+            {% endif %}
+
+            <figcaption>
+                <div class="row d-flex justify-content-center">
+                    <div id="id_user_bio">{{profile.bio}}</div>
+                </div>
+            
+
+                <div>
+                    {% if profile.user in request.user.profile.following.all %}
+                        <form action="{% url 'unfollow' profile.user.id %}" method="POST">
+                        <button type="submit" id="id_unfollow">Unfollow</button>
+                        {% csrf_token %}
+                        </form>
+                    {% else %}
+                        <form action="{% url 'follow' profile.user.id %}" method="POST">
+                        <button type="submit" id="id_follow">follow</button>
+                        {% csrf_token %}
+                        </form>
+                    {% endif %}
+
+                </div>
+            </figcaption>
+        </figure>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "socialnetwork/logged_in_base.html" %}
+
+{% block page_name %}
+<div id="id_page_name" class="d-flex justify-content-center"> Profile Page for {{profile.user.get_full_name}} </div>
+{% endblock %}
+
+{% block profile %}
+<div id="id_profile_content">
+    <div class="text-center">
+        <figure>
+            {% if not profile.picture %}
+                <img id="id_user_picture" class="img-thumbnail" src="/static/socialnetwork/user_picture.jpeg">
+            {% else %}
+                <img src="{% url 'photo' profile.user.id %}" id="id_user_picture"> 
+            {% endif %}
+            <figcaption>
+                <form action="{% url 'user_profile' %}" method="POST" enctype="multipart/form-data">
+                    <table>
+                        {{form}}
+                    </table>
+                    {% csrf_token %}
+                    <button id="id_update_profile_button">Submit</button>
+                </form>
+            </figcaption>
+        </figure>
+        <div>
+            You are following:
+            <ul>
+                {% for u in profile.following.all %}
+                    <li>
+                        <a href="{% url 'other_profile' u.id %}" id="id_profile_link_{{u.username}}">{{u.first_name}} {{u.last_name}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

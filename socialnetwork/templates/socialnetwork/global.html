@@ -1,0 +1,15 @@
+{% extends "socialnetwork/stream_base.html" %}
+
+{% block page_name %}
+<div id="id_page_name" class="d-flex justify-content-center"> Global Stream </div>
+{% endblock %}
+
+{% block content %}
+
+<div class="postbox container" id="all_posts"></div>
+
+<script>
+    window.onload = getPostList;
+    window.setInterval(getPostList, 5000);
+</script>
+{% endblock %}

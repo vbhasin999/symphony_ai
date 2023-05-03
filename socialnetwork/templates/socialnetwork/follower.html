@@ -1,0 +1,16 @@
+{% extends "socialnetwork/stream_base.html" %}
+
+{% block page_name %}
+<div id="id_page_name" class="d-flex justify-content-center"> Follower Stream </div>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="postbox container" id="all_posts"></div>
+
+<script>
+    window.onload = getPostListFollower;
+    window.setInterval(getPostListFollower, 5000);
+</script>
+{% endblock %}

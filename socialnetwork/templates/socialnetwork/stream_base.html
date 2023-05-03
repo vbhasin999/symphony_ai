@@ -1,0 +1,13 @@
+{% extends "socialnetwork/logged_in_base.html" %}
+
+{% block post %}
+<div class="d-flex justify-content-center">
+    <form method="post" action="{% url 'global' %}">
+        <label for="id_post_input_text">New Post:</label>
+        <input type="text" id="id_post_input_text" name="text">
+        {% csrf_token%}
+        <button type="submit" id="id_post_button">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
